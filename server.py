@@ -71,10 +71,8 @@ class Server(object):
         """
         For any room_number in 0, 1, 2, 3, return a string that "describes" that
         room.
-
         Ex: `self.room_number(1)` yields "Brown wallpaper covers the walls, bathing
         the room in warm light reflected from the half-drawn curtains."
-
         :param room_number: int
         :return: str
         """
@@ -115,8 +113,7 @@ class Server(object):
         while b'\n' not in received:
             received += self.client_connection.recv(16)
 
-        self.input_buffer = received.decode()
-
+        self.input_buffer = received.decode().strip()
 
     def move(self, argument):
         """
@@ -159,7 +156,6 @@ class Server(object):
 
         self.output_buffer = self.room_description(self.room)
 
-
     def say(self, argument):
         """
         Lets the client speak by putting their utterance into the output buffer.
@@ -176,6 +172,7 @@ class Server(object):
 
         self.output_buffer = 'You say, "{}"'.format(argument)
 
+
     def quit(self, argument):
         """
         Quits the client from the server.
@@ -190,6 +187,7 @@ class Server(object):
 
         self.done = True
         self.output_buffer = "Goodbye!"
+
 
     def route(self):
         """
